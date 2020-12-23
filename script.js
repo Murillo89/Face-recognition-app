@@ -8,11 +8,16 @@ Promise.all([
 ]).then(startVideo)
 
 function startVideo() {
-  navigator.getUserMedia(
-    { video : {} },
-    stream => video.srcObject = stream,
-    err => console.error(err)
-  )
+  var constraints = { video: true, audio: true };
+
+  navigator.mediaDevices.getUserMedia(constraints)
+  .then(stream => video.srcObject = stream)
+  .catch(e => console.error(e));
+  // navigator.getUserMedia(
+  //   { video : {} },
+  //   stream => video.srcObject = stream,
+  //   err => console.error(err)
+  // )
 }
 
 video.addEventListener('play', () => {
